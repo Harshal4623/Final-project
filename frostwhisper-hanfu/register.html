@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Frostwhisper Hanfu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="top-bar">
+      <p>Global Hanfu Fashion • Elegant Styles • Inclusive Sizing</p>
+    </div>
+
+    <div class="navbar">
+      <div class="logo">Frostwhisper</div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="culture.html">Culture</a>
+        <a href="login.html">Login</a>
+        <a href="register.html" class="nav-btn">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="auth-section reveal js-reveal">
+    <div class="auth-wrapper">
+      <div class="auth-text">
+        <p class="mini-title">Join Frostwhisper</p>
+        <h1>Create Your Account</h1>
+        <p>
+          Sign up to explore personalized shopping, future order management,
+          and a seamless Hanfu fashion experience.
+        </p>
+      </div>
+
+      <div class="auth-card">
+        <form class="auth-form" id="registerForm">
+          <label for="registerName">Full Name</label>
+          <input
+            type="text"
+            id="registerName"
+            name="registerName"
+            placeholder="Enter your full name"
+            required
+          />
+
+          <label for="registerEmail">Email Address</label>
+          <input
+            type="email"
+            id="registerEmail"
+            name="registerEmail"
+            placeholder="Enter your email"
+            required
+          />
+
+          <label for="registerPassword">Password</label>
+          <input
+            type="password"
+            id="registerPassword"
+            name="registerPassword"
+            placeholder="Create a password"
+            required
+          />
+
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Confirm your password"
+            required
+          />
+
+          <button type="submit" class="btn-primary auth-btn">Create Account</button>
+
+          <p id="registerMessage" class="form-message"></p>
+
+          <p class="auth-switch">
+            Already have an account?
+            <a href="login.html">Login here</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h3>Frostwhisper</h3>
+        <p>
+          A global Hanfu platform combining cultural elegance, modern fashion,
+          and user-friendly online shopping.
+        </p>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="culture.html">Culture</a>
+      </div>
+
+      <div>
+        <h4>Customer Care</h4>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+        <a href="#">Sizing Guide</a>
+      </div>
+
+      <div>
+        <h4>Contact</h4>
+        <p>Email: hello@frostwhisper.com</p>
+        <p>Instagram: @frostwhisperhanfu</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Frostwhisper Hanfu. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="chatbot-widget">
+    <button id="chatToggle" class="chat-toggle-btn">Chat</button>
+
+    <div id="chatBox" class="chat-box hidden">
+      <div class="chat-header">
+        <h3>Frostwhisper Assistant</h3>
+        <button id="closeChat" class="close-chat-btn">&times;</button>
+      </div>
+
+      <div id="chatMessages" class="chat-messages">
+        <div class="bot-message">
+          Hello! I can help with shipping, returns, sizing, wedding Hanfu, payment, and feedback.
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <input
+          type="text"
+          id="chatInput"
+          placeholder="Ask a question or leave feedback..."
+        />
+        <button id="sendChat" class="send-chat-btn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

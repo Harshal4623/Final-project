@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account - Frostwhisper Hanfu</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .account-section {
+      max-width: 860px;
+      margin: 3rem auto;
+      padding: 0 1.5rem 4rem;
+    }
+    .account-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .account-greeting h1 { font-size: 1.7rem; margin: 0; }
+    .account-greeting p  { color: #888; margin: 0.25rem 0 0; font-size: 0.95rem; }
+    .logout-btn {
+      background: none;
+      border: 1.5px solid #c0392b;
+      color: #c0392b;
+      padding: 0.45rem 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .logout-btn:hover { background: #fdf0ef; }
+
+    /* Orders */
+    .orders-heading {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+    .order-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .order-meta {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .order-id   { font-size: 0.8rem; color: #aaa; }
+    .order-date { font-size: 0.85rem; color: #888; }
+    .order-total { font-weight: 700; font-size: 1rem; color: #2c2c2c; }
+    .order-status {
+      display: inline-block;
+      background: #eaf4ec;
+      color: #3a7d44;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.2rem 0.65rem;
+      border-radius: 20px;
+    }
+    .order-items { margin-top: 0.6rem; }
+    .order-item-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px dashed #f0f0f0;
+      color: #444;
+    }
+    .order-item-row:last-child { border-bottom: none; }
+    .order-address {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      color: #999;
+    }
+
+    .no-orders {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #aaa;
+    }
+    .no-orders a { color: inherit; text-decoration: underline; }
+
+    .loading-msg { text-align: center; color: #bbb; padding: 2rem; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="top-bar">
+      <p>Global Hanfu Fashion • Elegant Styles • Inclusive Sizing</p>
+    </div>
+    <div class="navbar">
+      <div class="logo">Frostwhisper</div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="culture.html">Culture</a>
+        <a href="cart.html">Cart <span id="cart-count" class="cart-badge">0</span></a>
+        <a href="login.html">Login</a>
+        <a href="register.html" class="nav-btn">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="account-section">
+    <div class="account-header">
+      <div class="account-greeting">
+        <h1 id="greetingName">My Account</h1>
+        <p id="greetingEmail"></p>
+      </div>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <div class="orders-heading">Order History</div>
+    <div id="ordersContainer">
+      <div class="loading-msg">Loading your orders…</div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>© 2026 Frostwhisper Hanfu. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    const user = JSON.parse(localStorage.getItem("frostwhisperUser"));
+
+    // Redirect to login if not logged in
+    if (!user) {
+      window.location.href = "login.html";
+    }
+
+    document.getElementById("greetingName").textContent = `Hi, ${user.fullName} 👋`;
+    document.getElementById("greetingEmail").textContent = user.email;
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("frostwhisperUser");
+      window.location.href = "index.html";
+    });
+
+    // Load orders
+    async function loadOrders() {
+      const container = document.getElementById("ordersContainer");
+      try {
+        const res = await fetch(`/api/orders/${encodeURIComponent(user.email)}`);
+        const orders = await res.json();
+
+        if (!orders.length) {
+          container.innerHTML = `
+            <div class="no-orders">
+              <p>You haven't placed any orders yet.</p>
+              <p><a href="shop.html">Browse the shop</a> to get started.</p>
+            </div>`;
+          return;
+        }
+
+        container.innerHTML = orders.map((order) => `
+          <div class="order-card">
+            <div class="order-meta">
+              <div>
+                <div class="order-id">Order #${order.id}</div>
+                <div class="order-date">${new Date(order.created_at).toLocaleDateString("en-US", { year:"numeric", month:"short", day:"numeric" })}</div>
+              </div>
+              <div style="text-align:right">
+                <span class="order-status">✓ Confirmed</span><br/>
+                <span class="order-total">$${order.total}</span>
+              </div>
+            </div>
+
+            <div class="order-items">
+              ${order.items.map((item) => `
+                <div class="order-item-row">
+                  <span>${item.name} × ${item.quantity}</span>
+                  <span>$${item.price * item.quantity}</span>
+                </div>
+              `).join("")}
+            </div>
+
+            <div class="order-address">
+              📦 ${order.address}, ${order.city}, ${order.country} ${order.zip}
+            </div>
+          </div>
+        `).join("");
+
+      } catch (err) {
+        container.innerHTML = `<div class="no-orders">Could not load orders. Make sure the server is running.</div>`;
+      }
+    }
+
+    loadOrders();
+  </script>
+</body>
+</html>

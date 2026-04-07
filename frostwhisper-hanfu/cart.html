@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart - Frostwhisper Hanfu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="top-bar">
+      <p>Global Hanfu Fashion • Elegant Styles • Inclusive Sizing</p>
+    </div>
+
+    <div class="navbar">
+      <div class="logo">Frostwhisper</div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="culture.html">Culture</a>
+        <a href="cart.html">Cart <span id="cart-count" class="cart-badge">0</span></a>
+        <a href="login.html">Login</a>
+        <a href="register.html" class="nav-btn">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="cart-page reveal js-reveal">
+    <div class="section-heading">
+      <p class="mini-title">Your Cart</p>
+      <h1>Shopping Cart</h1>
+      <p>Review your selected Hanfu items before checkout.</p>
+    </div>
+
+    <div class="cart-layout">
+      <div id="cart-items" class="cart-items"></div>
+
+      <div class="cart-summary">
+        <h3>Order Summary</h3>
+        <div class="summary-row">
+          <span>Items</span>
+          <span id="summary-items">0</span>
+        </div>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="summary-subtotal">$0</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>$15</span>
+        </div>
+        <div class="summary-row total-row">
+          <span>Total</span>
+          <span id="summary-total">$15</span>
+        </div>
+
+        <a href="checkout.html" class="btn-primary full-btn">Proceed to Checkout</a>
+        <button id="clear-cart-btn" class="btn-secondary full-btn secondary-block">Clear Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h3>Frostwhisper</h3>
+        <p>
+          A global Hanfu platform combining cultural elegance, modern fashion,
+          and user-friendly online shopping.
+        </p>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="culture.html">Culture</a>
+        <a href="cart.html">Cart</a>
+      </div>
+
+      <div>
+        <h4>Customer Care</h4>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+        <a href="#">Sizing Guide</a>
+      </div>
+
+      <div>
+        <h4>Contact</h4>
+        <p>Email: hello@frostwhisper.com</p>
+        <p>Instagram: @frostwhisperhanfu</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Frostwhisper Hanfu. All rights reserved.</p>
+    </div>
+  </footer>
+
+<div class="chatbot-widget">
+  <button id="chatToggle" class="chat-toggle-btn">Chat</button>
+
+  <div id="chatBox" class="chat-box hidden">
+    <div class="chat-header">
+      <h3>Frostwhisper Assistant</h3>
+      <button id="closeChat" class="close-chat-btn">&times;</button>
+    </div>
+
+    <div id="chatMessages" class="chat-messages">
+      <div class="bot-message">
+        Hello! I can help with shipping, returns, sizing, wedding Hanfu, payment, and feedback.
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input
+        type="text"
+        id="chatInput"
+        placeholder="Ask a question or leave feedback..."
+      />
+      <button id="sendChat" class="send-chat-btn">Send</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

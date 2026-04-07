@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Frostwhisper Hanfu</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f4f4f6; color: #2c2c2c; }
+
+    /* LOGIN SCREEN */
+    #loginScreen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; background: linear-gradient(135deg, #1a1a2e, #16213e);
+    }
+    .login-box {
+      background: #fff; border-radius: 16px; padding: 2.5rem 2rem;
+      width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .login-box h1 { font-size: 1.5rem; margin-bottom: 0.3rem; }
+    .login-box p { color: #888; font-size: 0.9rem; margin-bottom: 1.8rem; }
+    .login-box input {
+      width: 100%; padding: 0.75rem 1rem; border: 1.5px solid #ddd;
+      border-radius: 8px; font-size: 0.95rem; margin-bottom: 1rem; outline: none;
+    }
+    .login-box input:focus { border-color: #8b6914; }
+    .login-box button {
+      width: 100%; padding: 0.8rem; background: #8b6914; color: #fff;
+      border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: 600;
+    }
+    .login-box button:hover { background: #6d5210; }
+    #loginError { color: #c0392b; font-size: 0.85rem; margin-top: 0.75rem; }
+
+    /* DASHBOARD */
+    #dashboard { display: none; }
+
+    .top-bar {
+      background: #1a1a2e; color: #fff; padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .top-bar h1 { font-size: 1.2rem; font-weight: 700; }
+    .top-bar span { font-size: 0.85rem; opacity: 0.7; }
+    .logout-btn {
+      background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+    }
+    .logout-btn:hover { background: rgba(255,255,255,0.2); }
+
+    .tabs {
+      background: #fff; border-bottom: 2px solid #eee;
+      display: flex; padding: 0 2rem; gap: 0;
+    }
+    .tab-btn {
+      padding: 1rem 1.5rem; background: none; border: none; cursor: pointer;
+      font-size: 0.95rem; color: #888; border-bottom: 3px solid transparent;
+      margin-bottom: -2px; font-weight: 500; transition: all 0.2s;
+    }
+    .tab-btn.active { color: #8b6914; border-bottom-color: #8b6914; font-weight: 700; }
+    .tab-btn:hover { color: #8b6914; }
+    .badge {
+      display: inline-block; background: #e74c3c; color: #fff;
+      font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 10px; margin-left: 5px;
+    }
+
+    .content { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* STAT CARDS */
+    .stat-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem; margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: #fff; border-radius: 12px; padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06); text-align: center;
+    }
+    .stat-card .stat-number { font-size: 2rem; font-weight: 800; color: #8b6914; }
+    .stat-card .stat-label { font-size: 0.85rem; color: #888; margin-top: 0.3rem; }
+
+    /* TABLES */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .section-header h2 { font-size: 1.1rem; }
+    .refresh-btn {
+      background: #8b6914; color: #fff; border: none; padding: 0.5rem 1rem;
+      border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600;
+    }
+    .refresh-btn:hover { background: #6d5210; }
+
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #eaf4ec; color: #3a7d44; font-size: 0.78rem;
+      padding: 0.3rem 0.75rem; border-radius: 20px; font-weight: 600;
+    }
+    .live-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #3a7d44;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
+
+    .table-wrap {
+      background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06); overflow-x: auto;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    thead { background: #f9f5ee; }
+    th {
+      padding: 0.9rem 1rem; text-align: left; font-weight: 700;
+      color: #5a4a2a; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    td { padding: 0.85rem 1rem; border-bottom: 1px solid #f4f4f4; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fdfaf4; }
+
+    .status-badge {
+      display: inline-block; background: #eaf4ec; color: #3a7d44;
+      font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600;
+    }
+    .items-list { font-size: 0.82rem; color: #666; line-height: 1.6; }
+    .no-data { text-align: center; padding: 3rem; color: #bbb; font-size: 0.95rem; }
+
+    /* NEW ORDER NOTIFICATION */
+    #newOrderAlert {
+      display: none; position: fixed; top: 80px; right: 20px; z-index: 999;
+      background: #3a7d44; color: #fff; padding: 1rem 1.5rem; border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2); font-size: 0.95rem;
+      animation: slideIn 0.4s ease;
+    }
+    @keyframes slideIn { from { transform: translateX(120%); } to { transform: translateX(0); } }
+    #newOrderAlert strong { display: block; font-size: 1rem; margin-bottom: 0.2rem; }
+
+    /* USERS TABLE */
+    .email-cell { font-size: 0.82rem; color: #666; }
+    .hash-cell { font-size: 0.72rem; color: #bbb; font-family: monospace; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .auto-refresh-info { font-size: 0.8rem; color: #aaa; }
+    #countdown { font-weight: 700; color: #8b6914; }
+  </style>
+</head>
+<body>
+
+<!-- ─── LOGIN SCREEN ─── -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>🔐 Admin Dashboard</h1>
+    <p>Frostwhisper Hanfu — Staff Only</p>
+    <input type="password" id="adminPass" placeholder="Enter admin password" />
+    <button onclick="adminLogin()">Enter Dashboard</button>
+    <p id="loginError"></p>
+  </div>
+</div>
+
+<!-- ─── DASHBOARD ─── -->
+<div id="dashboard">
+  <div class="top-bar">
+    <div>
+      <h1>🌸 Frostwhisper Admin Dashboard</h1>
+      <span>Live order tracking & database viewer</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <span class="auto-refresh-info">Auto-refresh in <span id="countdown">30</span>s</span>
+      <button class="logout-btn" onclick="adminLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('orders')">📦 Orders <span class="badge" id="ordersBadge">0</span></button>
+    <button class="tab-btn" onclick="switchTab('users')">👤 Users <span class="badge" id="usersBadge">0</span></button>
+    <button class="tab-btn" onclick="switchTab('feedback')">💬 Feedback <span class="badge" id="feedbackBadge">0</span></button>
+    <button class="tab-btn" onclick="switchTab('products')">🛍️ Products</button>
+  </div>
+
+  <div class="content">
+
+    <!-- ─── ORDERS TAB ─── -->
+    <div class="tab-panel active" id="tab-orders">
+      <div class="stat-grid" id="statsGrid"></div>
+
+      <div class="section-header">
+        <div style="display:flex; align-items:center; gap:1rem;">
+          <h2>All Orders</h2>
+          <span class="live-badge"><span class="live-dot"></span> Live</span>
+        </div>
+        <button class="refresh-btn" onclick="loadAll()">🔄 Refresh Now</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTable"><tr><td colspan="8" class="no-data">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ─── USERS TAB ─── -->
+    <div class="tab-panel" id="tab-users">
+      <div class="section-header">
+        <h2>Registered Users</h2>
+        <button class="refresh-btn" onclick="loadUsers()">🔄 Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Full Name</th><th>Email</th><th>Password (Hashed)</th></tr>
+          </thead>
+          <tbody id="usersTable"><tr><td colspan="4" class="no-data">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ─── FEEDBACK TAB ─── -->
+    <div class="tab-panel" id="tab-feedback">
+      <div class="section-header">
+        <h2>Customer Feedback</h2>
+        <button class="refresh-btn" onclick="loadFeedback()">🔄 Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Date</th><th>Customer</th><th>Message</th></tr>
+          </thead>
+          <tbody id="feedbackTable"><tr><td colspan="4" class="no-data">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ─── PRODUCTS TAB ─── -->
+    <div class="tab-panel" id="tab-products">
+      <div class="section-header">
+        <h2>Product Catalog</h2>
+        <button class="refresh-btn" onclick="loadProducts()">🔄 Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Name</th><th>Category</th><th>Price</th><th>Occasion</th></tr>
+          </thead>
+          <tbody id="productsTable"><tr><td colspan="5" class="no-data">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NEW ORDER NOTIFICATION -->
+<div id="newOrderAlert">
+  <strong>🛍️ New Order Received!</strong>
+  <span id="newOrderDetails"></span>
+</div>
+
+<script>
+  // ─── ADMIN PASSWORD ───
+  // Change this to whatever password you want
+  const ADMIN_PASSWORD = "frostwhisper2026";
+
+  let knownOrderIds = new Set();
+  let refreshInterval;
+  let countdownInterval;
+  let countdownValue = 30;
+
+  function adminLogin() {
+    const pass = document.getElementById("adminPass").value;
+    if (pass === ADMIN_PASSWORD) {
+      document.getElementById("loginScreen").style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
+      loadAll();
+      startAutoRefresh();
+    } else {
+      document.getElementById("loginError").textContent = "Incorrect password. Try again.";
+    }
+  }
+
+  document.getElementById("adminPass").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") adminLogin();
+  });
+
+  function adminLogout() {
+    clearInterval(refreshInterval);
+    clearInterval(countdownInterval);
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("adminPass").value = "";
+  }
+
+  function startAutoRefresh() {
+    countdownValue = 30;
+    document.getElementById("countdown").textContent = countdownValue;
+
+    countdownInterval = setInterval(() => {
+      countdownValue--;
+      document.getElementById("countdown").textContent = countdownValue;
+      if (countdownValue <= 0) {
+        countdownValue = 30;
+        loadAll();
+      }
+    }, 1000);
+  }
+
+  // ─── TABS ───
+  function switchTab(name) {
+    document.querySelectorAll(".tab-btn").forEach((b, i) => {
+      const names = ["orders","users","feedback","products"];
+      b.classList.toggle("active", names[i] === name);
+    });
+    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+    document.getElementById("tab-" + name).classList.add("active");
+    if (name === "users") loadUsers();
+    if (name === "feedback") loadFeedback();
+    if (name === "products") loadProducts();
+  }
+
+  // ─── LOAD ALL (for orders + stats) ───
+  async function loadAll() {
+    await loadOrders();
+  }
+
+  // ─── ORDERS ───
+  async function loadOrders() {
+    try {
+      const res = await fetch("/api/orders");
+      const orders = await res.json();
+
+      document.getElementById("ordersBadge").textContent = orders.length;
+
+      // Detect new orders
+      orders.forEach(o => {
+        if (!knownOrderIds.has(o.id) && knownOrderIds.size > 0) {
+          showNewOrderAlert(o);
+        }
+        knownOrderIds.add(o.id);
+      });
+      if (knownOrderIds.size === 0) orders.forEach(o => knownOrderIds.add(o.id));
+
+      // Stats
+      const totalRevenue = orders.reduce((s, o) => s + o.total, 0);
+      const today = new Date().toDateString();
+      const todayOrders = orders.filter(o => new Date(o.created_at).toDateString() === today).length;
+      document.getElementById("statsGrid").innerHTML = `
+        <div class="stat-card"><div class="stat-number">${orders.length}</div><div class="stat-label">Total Orders</div></div>
+        <div class="stat-card"><div class="stat-number">$${totalRevenue.toFixed(2)}</div><div class="stat-label">Total Revenue</div></div>
+        <div class="stat-card"><div class="stat-number">${todayOrders}</div><div class="stat-label">Orders Today</div></div>
+      `;
+
+      // Table
+      const tbody = document.getElementById("ordersTable");
+      if (!orders.length) {
+        tbody.innerHTML = `<tr><td colspan="8" class="no-data">No orders yet.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = orders.map(o => {
+        const items = typeof o.items === "string" ? JSON.parse(o.items) : o.items;
+        const itemsList = items.map(i => `${i.name} ×${i.quantity}`).join("<br>");
+        const date = new Date(o.created_at).toLocaleString("en-US", {month:"short",day:"numeric",year:"numeric",hour:"2-digit",minute:"2-digit"});
+        return `<tr>
+          <td><strong>#${o.id}</strong></td>
+          <td style="font-size:0.82rem;color:#888">${date}</td>
+          <td><strong>${o.full_name}</strong></td>
+          <td class="email-cell">${o.email}<br><span style="color:#aaa">${o.phone}</span></td>
+          <td style="font-size:0.82rem;color:#666">${o.address},<br>${o.city}, ${o.country} ${o.zip}</td>
+          <td class="items-list">${itemsList}</td>
+          <td><strong>$${o.total}</strong></td>
+          <td><span class="status-badge">✓ Confirmed</span></td>
+        </tr>`;
+      }).join("");
+    } catch (e) {
+      document.getElementById("ordersTable").innerHTML = `<tr><td colspan="8" class="no-data">Could not load orders. Is the server running?</td></tr>`;
+    }
+  }
+
+  // ─── USERS ───
+  async function loadUsers() {
+    try {
+      const res = await fetch("/api/admin/users");
+      const users = await res.json();
+      document.getElementById("usersBadge").textContent = users.length;
+      const tbody = document.getElementById("usersTable");
+      if (!users.length) { tbody.innerHTML = `<tr><td colspan="4" class="no-data">No users yet.</td></tr>`; return; }
+      tbody.innerHTML = users.map(u => `<tr>
+        <td>${u.id}</td>
+        <td><strong>${u.full_name}</strong></td>
+        <td class="email-cell">${u.email}</td>
+        <td class="hash-cell" title="${u.password}">${u.password}</td>
+      </tr>`).join("");
+    } catch (e) {
+      document.getElementById("usersTable").innerHTML = `<tr><td colspan="4" class="no-data">Could not load users.</td></tr>`;
+    }
+  }
+
+  // ─── FEEDBACK ───
+  async function loadFeedback() {
+    try {
+      const res = await fetch("/api/feedback");
+      const rows = await res.json();
+      document.getElementById("feedbackBadge").textContent = rows.length;
+      const tbody = document.getElementById("feedbackTable");
+      if (!rows.length) { tbody.innerHTML = `<tr><td colspan="4" class="no-data">No feedback yet.</td></tr>`; return; }
+      tbody.innerHTML = rows.map(f => {
+        const date = new Date(f.created_at).toLocaleString("en-US", {month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
+        return `<tr>
+          <td>${f.id}</td>
+          <td style="font-size:0.82rem;color:#888">${date}</td>
+          <td>${f.customer_name}</td>
+          <td>${f.message}</td>
+        </tr>`;
+      }).join("");
+    } catch (e) {
+      document.getElementById("feedbackTable").innerHTML = `<tr><td colspan="4" class="no-data">Could not load feedback.</td></tr>`;
+    }
+  }
+
+  // ─── PRODUCTS ───
+  async function loadProducts() {
+    try {
+      const res = await fetch("/api/products");
+      const products = await res.json();
+      const tbody = document.getElementById("productsTable");
+      if (!products.length) { tbody.innerHTML = `<tr><td colspan="5" class="no-data">No products.</td></tr>`; return; }
+      tbody.innerHTML = products.map(p => `<tr>
+        <td>${p.id}</td>
+        <td><strong>${p.name}</strong></td>
+        <td>${p.category}</td>
+        <td><strong>$${p.price}</strong></td>
+        <td style="color:#888">${p.occasion || "—"}</td>
+      </tr>`).join("");
+    } catch (e) {
+      document.getElementById("productsTable").innerHTML = `<tr><td colspan="5" class="no-data">Could not load products.</td></tr>`;
+    }
+  }
+
+  // ─── NEW ORDER ALERT ───
+  function showNewOrderAlert(order) {
+    const alert = document.getElementById("newOrderAlert");
+    document.getElementById("newOrderDetails").textContent = `${order.full_name} — $${order.total}`;
+    alert.style.display = "block";
+    setTimeout(() => { alert.style.display = "none"; }, 5000);
+  }
+</script>
+</body>
+</html>

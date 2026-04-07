@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - Frostwhisper Hanfu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="top-bar">
+      <p>Global Hanfu Fashion • Elegant Styles • Inclusive Sizing</p>
+    </div>
+
+    <div class="navbar">
+      <div class="logo">Frostwhisper</div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="culture.html">Culture</a>
+        <a href="cart.html">Cart <span id="cart-count" class="cart-badge">0</span></a>
+        <a href="login.html">Login</a>
+        <a href="register.html" class="nav-btn">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="checkout-page reveal js-reveal">
+    <div class="section-heading">
+      <p class="mini-title">Checkout</p>
+      <h1>Complete Your Order</h1>
+      <p>Enter shipping and payment details to place your order.</p>
+    </div>
+
+    <div class="checkout-layout">
+      <div class="auth-card checkout-form-card">
+        <form id="checkoutForm" class="auth-form">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="Enter your full name" required />
+
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" required />
+
+          <label for="phone">Phone Number</label>
+          <input type="text" id="phone" placeholder="Enter your phone number" required />
+
+          <label for="address">Shipping Address</label>
+          <input type="text" id="address" placeholder="Street address" required />
+
+          <label for="city">City</label>
+          <input type="text" id="city" placeholder="Enter your city" required />
+
+          <label for="country">Country</label>
+          <input type="text" id="country" placeholder="Enter your country" required />
+
+          <label for="zip">ZIP / Postal Code</label>
+          <input type="text" id="zip" placeholder="Enter ZIP code" required />
+
+          <label for="cardNumber">Card Number</label>
+          <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required />
+
+          <label for="cardName">Name on Card</label>
+          <input type="text" id="cardName" placeholder="Enter name on card" required />
+
+          <div class="checkout-inline">
+            <div>
+              <label for="expiry">Expiry Date</label>
+              <input type="text" id="expiry" placeholder="MM/YY" required />
+            </div>
+            <div>
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" placeholder="123" required />
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary auth-btn">Place Order</button>
+        </form>
+      </div>
+
+      <div class="cart-summary">
+        <h3>Order Summary</h3>
+        <div id="checkout-items-preview" class="checkout-items-preview"></div>
+        <div class="summary-row">
+          <span>Items</span>
+          <span id="checkout-summary-items">0</span>
+        </div>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="checkout-summary-subtotal">$0</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>$15</span>
+        </div>
+        <div class="summary-row total-row">
+          <span>Total</span>
+          <span id="checkout-summary-total">$15</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h3>Frostwhisper</h3>
+        <p>
+          A global Hanfu platform combining cultural elegance, modern fashion,
+          and user-friendly online shopping.
+        </p>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="culture.html">Culture</a>
+        <a href="cart.html">Cart</a>
+      </div>
+
+      <div>
+        <h4>Customer Care</h4>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+        <a href="#">Sizing Guide</a>
+      </div>
+
+      <div>
+        <h4>Contact</h4>
+        <p>Email: hello@frostwhisper.com</p>
+        <p>Instagram: @frostwhisperhanfu</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Frostwhisper Hanfu. All rights reserved.</p>
+    </div>
+  </footer>
+
+<div class="chatbot-widget">
+  <button id="chatToggle" class="chat-toggle-btn">Chat</button>
+
+  <div id="chatBox" class="chat-box hidden">
+    <div class="chat-header">
+      <h3>Frostwhisper Assistant</h3>
+      <button id="closeChat" class="close-chat-btn">&times;</button>
+    </div>
+
+    <div id="chatMessages" class="chat-messages">
+      <div class="bot-message">
+        Hello! I can help with shipping, returns, sizing, wedding Hanfu, payment, and feedback.
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input
+        type="text"
+        id="chatInput"
+        placeholder="Ask a question or leave feedback..."
+      />
+      <button id="sendChat" class="send-chat-btn">Send</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

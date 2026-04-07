@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed - Frostwhisper Hanfu</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .success-section {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .success-card {
+      max-width: 520px;
+      background: var(--card-bg, #fff);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .success-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    .success-card h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+    .success-card p {
+      color: #666;
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+    .success-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="top-bar">
+      <p>Global Hanfu Fashion • Elegant Styles • Inclusive Sizing</p>
+    </div>
+    <div class="navbar">
+      <div class="logo">Frostwhisper</div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="culture.html">Culture</a>
+        <a href="cart.html">Cart <span id="cart-count" class="cart-badge">0</span></a>
+        <a href="login.html">Login</a>
+        <a href="register.html" class="nav-btn">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="success-section">
+    <div class="success-card">
+      <div class="success-icon">✅</div>
+      <h1>Order Confirmed!</h1>
+      <p>Your payment was processed successfully.</p>
+      <p>Your Hanfu order is now being prepared and will be shipped within 1–2 business days. You'll receive a confirmation at your email.</p>
+      <p style="margin-top:1rem; font-size:0.9rem; color:#999;">Estimated delivery: 7–14 business days</p>
+      <div class="success-actions">
+        <a href="shop.html" class="btn-primary">Continue Shopping</a>
+        <a href="index.html" class="btn-secondary">Back to Home</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>© 2026 Frostwhisper Hanfu. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

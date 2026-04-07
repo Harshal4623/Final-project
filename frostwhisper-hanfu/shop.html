@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop - Frostwhisper Hanfu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="top-bar">
+      <p>Global Hanfu Fashion • Elegant Styles • Inclusive Sizing</p>
+    </div>
+    <div class="navbar">
+      <div class="logo">Frostwhisper</div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="culture.html">Culture</a>
+        <a href="cart.html">Cart <span id="cart-count" class="cart-badge">0</span></a>
+        <a href="login.html">Login</a>
+        <a href="register.html" class="nav-btn">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="shop-hero">
+    <div class="shop-hero-content">
+      <p class="mini-title">Frostwhisper Collection</p>
+      <h1>Shop All Hanfu Products</h1>
+      <p>Browse elegant Hanfu outfits, wedding styles, daily wear, and accessories designed for global customers.</p>
+    </div>
+  </section>
+
+  <section class="shop-controls">
+    <div class="shop-toolbar">
+      <input type="text" id="searchInput" class="shop-search" placeholder="Search Hanfu products..." />
+      <div class="filter-buttons">
+        <button class="filter-btn active-filter" data-category="All">All</button>
+        <button class="filter-btn" data-category="Daily Wear">Daily Wear</button>
+        <button class="filter-btn" data-category="Wedding">Wedding</button>
+        <button class="filter-btn" data-category="Accessories">Accessories</button>
+        <button class="filter-btn" data-category="Festival">Festival</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="shop-section">
+    <div id="product-count" class="product-count"></div>
+    <div id="product-container" class="product-grid"></div>
+  </section>
+
+  <section class="pricing-demo-section">
+    <div class="pricing-card">
+      <h2>Rent to Experience</h2>
+      <p class="subtitle">If you would like to experience Hanfu before purchasing, rental service is available.</p>
+      <div class="price-box">
+        <div class="price-label">Rental Price</div>
+        <div class="price-text">$25/day</div>
+      </div>
+      <div class="rental-info-box">
+        <h3>To Rent This Hanfu</h3>
+        <p>Rentals are available for <strong>$25 per day</strong>.</p>
+        <p>Please call <strong>(928) 555-1846</strong> to reserve and confirm availability.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews-section">
+    <div class="section-heading">
+      <p class="mini-title">Customer Reviews</p>
+      <h2>What Our Customers Say</h2>
+    </div>
+    <div id="reviews-container" class="reviews-grid"></div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-column">
+        <h3>About Frostwhisper</h3>
+        <p>A modern Hanfu fashion platform blending traditional elegance with a refined global shopping experience.</p>
+      </div>
+      <div class="footer-column">
+        <h3>Customer Care</h3>
+        <ul class="footer-links">
+          <li><a href="#">7-Day Return Policy</a></li>
+          <li><a href="#">Shipping Information</a></li>
+          <li><a href="#">Sizing Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Global Payments</h3>
+        <div class="payment-icons">
+          <div class="payment-icon">Visa</div>
+          <div class="payment-icon">PayPal</div>
+          <div class="payment-icon">Alipay</div>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Newsletter</h3>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email" />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Frostwhisper Hanfu. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="chatbot-widget">
+    <button id="chatToggle" class="chat-toggle-btn">Chat</button>
+    <div id="chatBox" class="chat-box hidden">
+      <div class="chat-header">
+        <h3>Frostwhisper Assistant</h3>
+        <button id="closeChat" class="close-chat-btn">&times;</button>
+      </div>
+      <div id="chatMessages" class="chat-messages">
+        <div class="bot-message">Hello! I can help with shipping, returns, sizing, wedding Hanfu, payment, and feedback.</div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Ask a question or leave feedback..." />
+        <button id="sendChat" class="send-chat-btn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

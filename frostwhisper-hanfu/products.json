@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Blossom Ruqun",
+    "price": 129,
+    "image": "images/blossom-ruqun.jpg",
+    "category": "Daily Wear"
+  },
+  {
+    "name": "Moonlit Wedding Hanfu",
+    "price": 249,
+    "image": "images/moonlit-wedding-hanfu.jpg",
+    "category": "Wedding"
+  },
+  {
+    "name": "Jade Garden Hanfu Set",
+    "price": 159,
+    "image": "images/jade-garden-hanfu.jpg",
+    "category": "Festival"
+  },
+  {
+    "name": "Pearl Hair Ornament Set",
+    "price": 39,
+    "image": "images/pearl-hair-ornament.jpg",
+    "category": "Accessories"
+  },
+  {
+    "name": "Ivory Grace Ruqun",
+    "price": 139,
+    "image": "images/ivory-grace-ruqun.jpg",
+    "category": "Daily Wear"
+  },
+  {
+    "name": "Golden Phoenix Bridal Set",
+    "price": 289,
+    "image": "images/golden-phoenix-bridal-set.jpg",
+    "category": "Wedding"
+  },
+  {
+    "name": "Silk Ribbon Accessory Pack",
+    "price": 29,
+    "image": "images/silk-ribbon-accessory-pack.jpg",
+    "category": "Accessories"
+  },
+  {
+    "name": "Spring Lantern Hanfu",
+    "price": 149,
+    "image": "images/spring-lantern-hanfu.jpg",
+    "category": "Festival"
+  }
+]
